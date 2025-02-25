@@ -1,0 +1,44 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(173, 173, 240);
+}
+.home{
+    display: flex;
+    width: 15%;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    padding: 1rem 1rem;
+}
+.homeBtn{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+.searchBar{
+    display: flex;
+    width: 40%;
+    align-items: center;
+    justify-content: start;
+}
+.searchInput{
+    display: block;
+    width: 100%;
+}
+.icon{
+    display: flex;
+    align-items: center;
+    width: 10%;
+    font-size: 2rem;
+    gap: 1em;
+}
+
+.subHeader {
+    display: flex;
+    font-size: 2rem;
+    color: black;
+    background-color: beige;
+    gap: 1rem;
+}

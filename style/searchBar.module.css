@@ -1,0 +1,83 @@
+/* 검색 바 컨테이너 */
+.searchBar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    padding: 10px 15px;
+    width: 100%;
+    background: white;
+}
+
+.dropdown {
+    position: relative;
+    align-content: center;
+}
+
+.dropdownBtn {
+    background: none;
+    color: black;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.arrow {
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+/* 드롭다운 메뉴 */
+.dropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 120px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.dropdownItem {
+    color: black;
+    padding: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.dropdownItem:hover {
+    background: #f1f1f1;
+}
+
+/* 구분선 */
+.divider {
+    margin: 0 10px;
+    color: #bbb;
+}
+
+/* 검색 입력 필드 */
+.searchInput {
+    flex: 1;
+    border: none;
+    font-size: 14px;
+    outline: none;
+    padding: 5px 10px;
+}
+
+/* 검색 버튼 */
+.searchBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #555;
+}
+
+.searchBtn:hover {
+    color: black;
+}
