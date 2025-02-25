@@ -1,0 +1,34 @@
+.container{
+    display: flex;
+    background-color: rgb(206, 206, 247);
+    opacity: 30;
+    color: black;
+}
+.block{
+    margin-top: 1rem;
+    margin-left: 4rem;
+    display: flex;
+    flex-direction: column;
+}
+.editContainer{
+    display: flex;
+    flex-direction: column;
+    width: 10rem;
+    height: 10rem;
+    gap: 1rem;
+    margin: 1rem 6rem;
+}
+.editBtn{
+    background-color: blue;
+    height: 2rem;
+    margin: 1rem 1rem;
+}
+.deleteBtn{
+    background-color: red;
+    height: 2rem;
+    margin: 1rem 1rem;
+}
+.image{
+    margin-left: 5rem;
+    font-size: 4rem;
+}
