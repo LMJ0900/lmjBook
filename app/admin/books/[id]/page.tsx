@@ -44,8 +44,8 @@ export default function BookDetail() {
   if (loading) return <p className="text-center">로딩 중...</p>;
   if (!book) return <p className="text-center">해당 상품을 찾을 수 없습니다.</p>;
 
-  const handleUpdateBook = (updatedName: string, updatedAuthor: string, updatedStock: number, updatedSales: number) => {
-    setBook((prevBook) => prevBook ? { ...prevBook, name: updatedName, author: updatedAuthor, stock: updatedStock, sales: updatedSales } : null);
+  const handleUpdateBook = (updatedName: string, updatedAuthor: string, updatedStock: number, updatedSales: number, updatedDescription?: string) => {
+    setBook((prevBook) => prevBook ? { ...prevBook, name: updatedName, author: updatedAuthor, stock: updatedStock, sales: updatedSales, description: updatedDescription } : null);
     setIsEditing(false); // ✅ 수정 완료 후 수정 모드 종료
   };
 

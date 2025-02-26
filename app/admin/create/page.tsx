@@ -9,6 +9,7 @@ export default function AddBook() {
   const [author, setAuthor] = useState('');
   const [stock, setStock] = useState(0);
   const [sales, setSales] = useState(0);
+  const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const router = useRouter();
@@ -29,7 +30,7 @@ export default function AddBook() {
   };
 
   const handleAddBook = async () => {
-    if (!name || !author || !image) return alert('모든 필드를 입력해주세요.');
+    if (!name || !author || !image || description) return alert('모든 필드를 입력해주세요.');
 
     const filePath = `books/${Date.now()}-${image.name}`;
     const { error: imageError } = await supabase.storage.from('booksImages').upload(filePath, image);
@@ -46,6 +47,7 @@ export default function AddBook() {
         author,
         stock,
         sales,
+        description,
         image_url: publicURL.publicUrl,
       },
     ]);
@@ -71,7 +73,7 @@ export default function AddBook() {
       <input type="text" placeholder="저자" value={author} onChange={(e) => setAuthor(e.target.value)} className="w-full p-2 border rounded mb-2 text-black" />
       <input type="number" placeholder="재고" value={stock} onChange={(e) => setStock(Number(e.target.value))} className="w-full p-2 border rounded mb-2 text-black" />
       <input type="number" placeholder="판매량" value={sales} onChange={(e) => setSales(Number(e.target.value))} className="w-full p-2 border rounded mb-2 text-black" />
-
+      <textarea placeholder="책 설명을 입력하세요" value={description} onChange={(e) => setDescription(e.target.value)} className="w-full p-2 border rounded mb-2 text-black" rows={3}/>
       <label className="block mb-2 font-semibold">📷 이미지 업로드</label>
       <input type="file" accept="image/*" onChange={handleImageChange} className="w-full p-2 border rounded mb-4" />
 

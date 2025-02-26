@@ -27,7 +27,7 @@ export default function EditBookData({ bookId, name, author, stock, sales, descr
     }
     const { error } = await supabase
       .from('books')
-      .update({ name: newName, author: newAuthor, stock: newStock, sales: newSales })
+      .update(updateData)
       .eq('id', bookId);
 
     if (error) {
@@ -35,7 +35,7 @@ export default function EditBookData({ bookId, name, author, stock, sales, descr
       alert('상품 정보 수정 실패!');
     } else {
       alert('상품 정보 수정 완료!');
-      onUpdate(newName, newAuthor, newStock, newSales); // ✅ 수정 후 부모(Home) 컴포넌트의 상태 업데이트
+      onUpdate(newName, newAuthor, newStock, newSales, newDescription); // ✅ 수정 후 부모(Home) 컴포넌트의 상태 업데이트
     }
   };
 

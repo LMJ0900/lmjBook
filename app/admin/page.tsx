@@ -37,16 +37,12 @@ export default function Home() {
   useEffect(() => {
     async function fetchProducts() {
       let queryBuilder = supabase.from('books').select('*');
-      if (searchQuery.trim() === ""){
-        queryBuilder = queryBuilder;
-      }
-      // ✅ 검색 조건 추가
-      if (searchQuery) {
-        if (searchType === "통합검색") {
+      if (searchQuery.trim() !== '') {
+        if (searchType === '통합검색') {
           queryBuilder = queryBuilder.or(`name.ilike.%${searchQuery}%, author.ilike.%${searchQuery}%`);
-        } else if (searchType === "제목") {
+        } else if (searchType === '제목') {
           queryBuilder = queryBuilder.ilike('name', `%${searchQuery}%`);
-        } else if (searchType === "저자") {
+        } else if (searchType === '저자') {
           queryBuilder = queryBuilder.ilike('author', `%${searchQuery}%`);
         }
       }
@@ -156,6 +152,10 @@ export default function Home() {
             </div>
             {/* 수정버튼 클릭 시 수정창 나오게 하기*/}
             {editingbookId === book.id && (
+              <div
+              className="p-4 border border-gray-300 rounded-md"
+              onClick={(event) => event.stopPropagation()} // ✅ 이벤트 버블링 방지
+            >
               <EditBookData
                 bookId={book.id}
                 name={book.name}
@@ -167,6 +167,7 @@ export default function Home() {
                 }
                 showDescription={false}
               />
+               </div>
             )}
             </button>
           </li>
