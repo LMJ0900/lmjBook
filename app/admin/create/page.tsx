@@ -30,17 +30,20 @@ export default function AddBook() {
   };
 
   const handleAddBook = async () => {
-    if (!name || !author || !image || description) return alert('모든 필드를 입력해주세요.');
-
+    if (!name || !author || !image || description.trim() === '') {
+      return alert('모든 필드를 입력해주세요.');
+    }
+  
     const filePath = `books/${Date.now()}-${image.name}`;
     const { error: imageError } = await supabase.storage.from('booksImages').upload(filePath, image);
-
+  
     if (imageError) return alert('이미지 업로드 실패: ' + imageError.message);
-
-    const { data: publicURL } = supabase.storage.from('booksImages').getPublicUrl(filePath);
-
-    if (!publicURL.publicUrl) return alert('이미지 URL 가져오기 실패');
-
+  
+    const { data } = supabase.storage.from('booksImages').getPublicUrl(filePath);
+    if (!data) return alert('이미지 URL 가져오기 실패');
+  
+    const imageUrl = data.publicUrl;
+  
     const { error } = await supabase.from('books').insert([
       {
         name,
@@ -48,16 +51,19 @@ export default function AddBook() {
         stock,
         sales,
         description,
-        image_url: publicURL.publicUrl,
+        image_url: imageUrl,
       },
     ]);
-
-    if (error) console.error(error);
-    else {
-      alert('상품 추가 완료!');
-      router.push('/admin');
+  
+    if (error) {
+      console.error(error);
+      return alert('상품 추가 실패: ' + error.message);
     }
+  
+    alert('상품 추가 완료!');
+    router.push('/admin');
   };
+  
 
   return (
     <div className="max-w-lg mx-auto bg-white shadow-lg p-6 rounded-lg">
