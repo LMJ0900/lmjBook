@@ -5,7 +5,7 @@
     color: black;
 }
 .block{
-    margin-top: 1rem;
+    margin-top: 3rem;
     margin-left: 4rem;
     display: flex;
     flex-direction: column;
@@ -16,7 +16,7 @@
     width: 10rem;
     height: 10rem;
     gap: 1rem;
-    margin: 1rem 6rem;
+    margin: 3rem 6rem;
 }
 .editBtn{
     background-color: blue;

@@ -1,11 +1,27 @@
-import { useState } from "react";
-import classes from "@/style/searchBar.module.css"
-export default function SearchBar() {
+import { useEffect, useState } from "react";
+import classes from "@/style/searchBar.module.css";
+
+export default function SearchBar({ onSearch }: { onSearch: (query: string, type: string) => void }) {
     const [searchType, setSearchType] = useState("통합검색");
     const [searchQuery, setSearchQuery] = useState("");
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+
 
     const searchOptions = ["통합검색", "제목", "저자"];
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+    
+
+     const handleSearch = () => {
+        if (searchQuery.trim() === "") {
+            onSearch("",''); // ✅ 검색어가 비어있으면 전체 조회 실행
+        } else {
+            onSearch(searchQuery, searchType);
+        }
+    };
+    useEffect(() => {
+        if (searchQuery.trim() === "") {
+            onSearch("", '');
+        }
+    }, [searchQuery]); 
 
     return (
         <div className={classes.searchBar}>
@@ -39,11 +55,12 @@ export default function SearchBar() {
                 placeholder="검색어를 입력하세요"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleSearch()} // ✅ Enter 키로 검색 실행
             />
 
             {/* 검색 아이콘 버튼 */}
-            <button className={classes.searchBtn}>
-            <i className="fa-solid fa-magnifying-glass"></i>
+            <button className={classes.searchBtn} onClick={handleSearch}>
+                <i className="fa-solid fa-magnifying-glass"></i>
             </button>
         </div>
     );

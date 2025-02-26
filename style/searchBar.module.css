@@ -63,6 +63,7 @@
 /* 검색 입력 필드 */
 .searchInput {
     flex: 1;
+    color : gray;
     border: none;
     font-size: 14px;
     outline: none;

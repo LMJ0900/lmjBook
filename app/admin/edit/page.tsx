@@ -8,16 +8,23 @@ interface EditBookDataProps {
   author: string;
   stock: number;
   sales: number;
-  onUpdate: (updatedName: string, updatedAuthor: string, updatedStock: number, updatedSales: number) => void; // ✅ UI 업데이트를 위한 prop 추가
+  description?: string;
+  onUpdate: (updatedName: string, updatedAuthor: string, updatedStock: number, updatedSales: number, updatedDescription?: string) => void;
+  showDescription?: boolean;
 }
 
-export default function EditBookData({ bookId, name, author, stock, sales, onUpdate }: EditBookDataProps) {
+export default function EditBookData({ bookId, name, author, stock, sales, description, onUpdate, showDescription = false }: EditBookDataProps) {
   const [newName, setNewName] = useState(name);
   const [newAuthor, setNewAuthor] = useState(author);
   const [newStock, setNewStock] = useState(stock);
   const [newSales, setNewSales] = useState(sales);
+  const [newDescription, setNewDescription] = useState(description || "");
 
   const handleUpdate = async () => {
+    const updateData: any = { name: newName, author: newAuthor, stock: newStock, sales: newSales };
+    if (showDescription) {
+      updateData.description = newDescription; // ✅ 상세 페이지에서만 설명 수정 가능
+    }
     const { error } = await supabase
       .from('books')
       .update({ name: newName, author: newAuthor, stock: newStock, sales: newSales })
@@ -63,6 +70,15 @@ export default function EditBookData({ bookId, name, author, stock, sales, onUpd
         onChange={(e) => setNewStock(Number(e.target.value))}
         className="block w-full p-2 border rounded mb-2"
       />
+       {/* ✅ 상세 페이지에서만 설명 수정 가능 */}
+       {showDescription && (
+        <textarea
+          placeholder="책 설명"
+          value={newDescription}
+          onChange={(e) => setNewDescription(e.target.value)}
+          className="block w-full p-2 border rounded mb-2"
+        />
+      )}
       <button onClick={handleUpdate} className="bg-blue-500 text-white px-4 py-2 rounded-md">
         수정 완료
       </button>

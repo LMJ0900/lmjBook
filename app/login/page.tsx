@@ -36,7 +36,7 @@ export default function Login() {
       router.push('/admin'); // ✅ 관리자 페이지로 이동
     } else {
       alert('일반 유저로 로그인되었습니다.');
-      router.push(''); // ✅ 일반 유저는 대시보드로 이동
+      router.push('./'); // ✅ 일반 유저는 대시보드로 이동
     }
   };
 
