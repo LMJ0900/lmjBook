@@ -21,7 +21,12 @@ export default function EditBookData({ bookId, name, author, stock, sales, descr
   const [newDescription, setNewDescription] = useState(description || "");
 
   const handleUpdate = async () => {
-    const updateData: any = { name: newName, author: newAuthor, stock: newStock, sales: newSales };
+    const updateData: Partial<EditBookDataProps> = {
+      name: newName,
+      author: newAuthor,
+      stock: newStock,
+      sales: newSales,
+    };
     if (showDescription) {
       updateData.description = newDescription; // ✅ 상세 페이지에서만 설명 수정 가능
     }

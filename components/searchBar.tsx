@@ -55,7 +55,7 @@ export default function SearchBar({ onSearch }: { onSearch: (query: string, type
                 placeholder="검색어를 입력하세요"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSearch()} // ✅ Enter 키로 검색 실행
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             />
 
             {/* 검색 아이콘 버튼 */}

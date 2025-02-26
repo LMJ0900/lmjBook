@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { supabase } from '@/lib/api/data';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/button'; // ✅ 버튼 컴포넌트 재사용
-
+import Image from 'next/image';
 export default function AddBook() {
   const [name, setName] = useState('');
   const [author, setAuthor] = useState('');
@@ -65,7 +65,7 @@ export default function AddBook() {
 
       {previewImage && (
         <div className="flex justify-center mb-4">
-          <img src={previewImage} alt="Preview" className="w-40 h-40 object-cover rounded-lg shadow-md" />
+          <Image  width={1000} height={1000} src={previewImage || '/default-placeholder.png'} alt="Preview" className="w-40 h-40 rounded-lg shadow-md" onError={(e) => e.currentTarget.src = '/default-placeholder.png'} />
         </div>
       )}
 

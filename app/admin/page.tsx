@@ -5,10 +5,12 @@ import classes from '@/style/adminHome.module.css';
 import PageBtn from '@/components/pageBtn';
 import Button from '@/components/button';
 import { useRouter } from 'next/navigation';
-import EditBookData from './edit/page';
+import EditBookData from '../../components/editBookdata';
 import AdminGuard from '@/components/adminGuard';
 import SearchBar from '@/components/searchBar'
 import SortDropdown from '@/components/sortDropdown';
+import Image from 'next/image';
+import LogoutButton from '@/components/logout';
 interface BookDataType {
   id: number;
   name: string;
@@ -57,7 +59,7 @@ export default function Home() {
       else setBookData(data);
     }
     fetchProducts();
-  }, [page, searchQuery, searchType]); // ✅ 검색할 때마다 실행
+  }, [bookData]); // ✅ 검색할 때마다 실행
   useEffect(() => {
     if (sortOrder) {
       const sortedData = [...bookData].sort((a, b) => {
@@ -132,12 +134,13 @@ export default function Home() {
         </div>
         <SortDropdown onSortChange={setSortOrder} />
         <Button func={handleClick} color="bg-black">책 추가하기</Button>
+        <LogoutButton></LogoutButton>
       </div>
       <ul>
         {bookData.map((book) => (
           <li className={classes.container} key={book.id}>
             <button className="flex mb-[1rem] bg-pink-200 w-[100vw]" onClick={() => router.push(`/admin/books/${book.id}`)}>
-            <img className={classes.image} src={book.image_url} alt={book.name} width={200} />
+            <Image  className={classes.image} src={book.image_url || `/default-placeholder.png`} alt={book.name} width={200} height={800} onError={(e) => e.currentTarget.src = '/default-placeholder.png'} />
             <div className={classes.block}>
               <p>책 이름: {book.name}</p>
               <p>저자: {book.author}</p>

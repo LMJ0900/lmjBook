@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { supabase } from '@/lib/api/data';
 import Button from '@/components/button';
-import EditBookData from '../../edit/page';
-
+import EditBookData from '../../../../components/editBookdata';
+import Image from 'next/image';
 interface BookDataType {
   id: number;
   name: string;
@@ -54,7 +54,7 @@ export default function BookDetail() {
     {!isEditing ? (
       <div>
         <h1 className="text-3xl font-bold mb-4 text-black">{book.name}</h1>
-        <img src={book.image_url} alt={book.name} className="w-80 h-auto mx-auto mb-4" />
+        <Image src={book.image_url || '/default-placeholder.png'} alt={book.name}  className="w-80 h-auto mx-auto mb-4" width={1000} height={1000}  onError={(e) => e.currentTarget.src = '/default-placeholder.png'}/>
         <p className='text-black'><strong>책 소개:</strong> {book.description}</p>
         <p className='text-black'><strong>저자:</strong> {book.author}</p>
         <p className='text-black'><strong>판매량:</strong> {book.sales}</p>

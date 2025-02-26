@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Header from "@/components/mainHeader";
 
-export default function userWrapper({ children }: { children: React.ReactNode }) {
+export default function UserWrapper({ children }: { children: React.ReactNode }) {
   const [isClient, setIsClient] = useState(false); // 클라이언트에서 실행됨을 감지
   const pathname = usePathname();
 

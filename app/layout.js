@@ -1,5 +1,4 @@
 import "@/style/globals.css";
-import Header from "@/components/mainHeader"
 import UserWrapper from "@/components/userWrapper";
 export const metadata = {
   title: "rgt book",
