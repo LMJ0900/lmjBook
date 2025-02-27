@@ -23,10 +23,7 @@ interface BookDataType {
 export default function Home() {
   const [bookData, setBookData] = useState<BookDataType[]>([]);
   const [page, setPage] = useState(1);
-<<<<<<< HEAD
-=======
   const [loading, setLoading] = useState(true);
->>>>>>> 43d2cc4b77a8d57801b010c406f4b4a95ea5ff9f
   const [editingbookId, setEditingbookId] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState("");
@@ -133,10 +130,7 @@ export default function Home() {
       setLoading(false);
     }
     fetchProducts();
-<<<<<<< HEAD
-=======
     window.scrollTo(0, 0);
->>>>>>> 43d2cc4b77a8d57801b010c406f4b4a95ea5ff9f
   }, [page]); //불러오기
 
   const handleUpdateBook = (id: number, updatedName: string, updatedAuthor: string, updatedStock: number, updatedSales: number) => {
