@@ -2,11 +2,12 @@
 import { useState } from 'react';
 import { supabase } from '@/lib/api/data';
 import { useRouter } from 'next/navigation';
-
+import useAuth from '@/components/hooks/useAuth';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+  const { refreshUser } = useAuth();
 
   const handleLogin = async () => {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -18,7 +19,7 @@ export default function Login() {
       alert(error.message);
       return;
     }
-
+    await refreshUser();
     // 로그인 성공 후 사용자 정보 가져오기
     const { data: userData, error: userError } = await supabase
       .from('users')
