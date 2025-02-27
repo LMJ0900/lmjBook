@@ -23,6 +23,7 @@ interface BookDataType {
 export default function Home() {
   const [bookData, setBookData] = useState<BookDataType[]>([]);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const [editingbookId, setEditingbookId] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState("");
@@ -37,7 +38,11 @@ export default function Home() {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
+  useEffect(() => {
     async function fetchProducts() {
+      setLoading(true);
       let queryBuilder = supabase.from('books').select('*');
       if (searchQuery.trim() !== '') {
         if (searchType === '통합검색') {
@@ -56,12 +61,16 @@ export default function Home() {
 
       const { data, error } = await queryBuilder;
       if (error) console.error(error);
-      else setBookData(data);
+      else {
+        setBookData(data);
+      }
+      setLoading(false);
     }
     fetchProducts();
   }, [searchQuery, searchType, page]); // ✅ 검색할 때마다 실행
   useEffect(() => {
     if (sortOrder) {
+      setLoading(true);
       const sortedData = [...bookData].sort((a, b) => {
         switch (sortOrder) {
           case 'sales_desc':
@@ -81,12 +90,14 @@ export default function Home() {
         }
       });
       setBookData(sortedData);
+      setLoading(false);
     }
   }, [sortOrder]);
 
 
   // ✅ 삭제 함수 추가
   const handleDelete = async (bookId: number) => {
+    setLoading(true);
     const { error } = await supabase.from('books').delete().eq('id', bookId);
     if (error) {
       console.error(error);
@@ -95,6 +106,7 @@ export default function Home() {
       alert('상품 삭제 완료!');
       setBookData((prevData) => prevData.filter((book) => book.id !== bookId));
     }
+    setLoading(false);
   };
   const handleEditClick = (bookId: number) => {
     setEditingbookId((prevId) => (prevId === bookId ? null : bookId));
@@ -106,14 +118,19 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchProducts() {
+      setLoading(true);
       const start = (page - 1) * itemsPerPage;
       const end = start + itemsPerPage - 1;
 
       const { data, error } = await supabase.from('books').select('*').range(start, end);
       if (error) console.error(error);
-      else setBookData(data);
+      else {
+        setBookData(data);
+      }
+      setLoading(false);
     }
     fetchProducts();
+    window.scrollTo(0, 0);
   }, [page]); //불러오기
 
   const handleUpdateBook = (id: number, updatedName: string, updatedAuthor: string, updatedStock: number, updatedSales: number) => {
@@ -137,6 +154,9 @@ export default function Home() {
         <Button func={handleClick} color="bg-black">책 추가하기</Button>
         <LogoutButton></LogoutButton>
       </div>
+      {loading ? (
+          <p className="text-center text-xl font-bold text-gray-600">⏳ 로딩 중...</p>
+        ) : (
       <ul>
         {bookData.map((book) => (
           <li className={classes.container} key={book.id}>
@@ -177,6 +197,7 @@ export default function Home() {
           </li>
         ))}
       </ul>
+        )}
       <PageBtn page={page} setPage={setPage} />
     </div>
     </AdminGuard>

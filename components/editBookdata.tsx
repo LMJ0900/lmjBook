@@ -45,8 +45,9 @@ export default function EditBookData({ bookId, name, author, stock, sales, descr
   };
 
   return (
-    <div className="p-4 border border-gray-300 rounded-md">
+    <div className="p-4 border border-gray-300 rounded-md text-black">
       <h2 className="text-lg font-semibold mb-2">상품 수정</h2>
+      <p className='pr-[11rem] font-semibold'>책 제목</p>
       <input
         type="text"
         placeholder="책 제목"
@@ -54,6 +55,7 @@ export default function EditBookData({ bookId, name, author, stock, sales, descr
         onChange={(e) => setNewName(e.target.value)}
         className="block w-full p-2 border rounded mb-2"
       />
+      <p className='pr-[12rem] font-semibold' >저자</p>
       <input
         type="text"
         placeholder="저자"
@@ -61,6 +63,7 @@ export default function EditBookData({ bookId, name, author, stock, sales, descr
         onChange={(e) => setNewAuthor(e.target.value)}
         className="block w-full p-2 border rounded mb-2"
       />
+      <p className='pr-[11rem] font-semibold' >판매량</p>
       <input
         type="number"
         placeholder="판매량"
@@ -68,6 +71,7 @@ export default function EditBookData({ bookId, name, author, stock, sales, descr
         onChange={(e) => setNewSales(Number(e.target.value))}
         className="block w-full p-2 border rounded mb-2"
       />
+      <p className='pr-[12rem] font-semibold'>재고</p>
       <input
         type="number"
         placeholder="재고"
@@ -77,12 +81,15 @@ export default function EditBookData({ bookId, name, author, stock, sales, descr
       />
        {/* ✅ 상세 페이지에서만 설명 수정 가능 */}
        {showDescription && (
+        <div>
+        <p className='folt-semibold'>책 설명</p>
         <textarea
           placeholder="책 설명"
           value={newDescription}
           onChange={(e) => setNewDescription(e.target.value)}
           className="block w-full p-2 border rounded mb-2"
         />
+        </div>
       )}
       <button onClick={handleUpdate} className="bg-blue-500 text-white px-4 py-2 rounded-md">
         수정 완료
