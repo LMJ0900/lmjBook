@@ -384,3 +384,64 @@ input 창에 입력한 텍스트를 searchQuery에 저장하고 사용자가 엔
 아닐 시에는 부모 컴포넌트의 handleSerch를 호출하여 searchQuery(검색어) searchType(ex : 통합검색)을 전달합니다.<br/>
 그 후 부모 컴포넌트에서 받은 검색어와 검색 유형을 supabase에서 데이터를 가져와 화면에 표시합니다.
 
+## 정렬
+`app/component/sortDropdown.tsx`
+```
+export default function SortDropdown({ onSortChange }: SortDropdownProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedSort, setSelectedSort] = useState('정렬 기준');
+
+  const sortOptions = [
+    { label: '최신 등록순', value: 'id_desc' },
+    { label: '오래된 등록순', value: 'id_asc' },
+    { label: '판매량 높은순', value: 'sales_desc' },
+    { label: '판매량 낮은순', value: 'sales_asc' },
+    { label: '재고 많은순', value: 'stock_desc' },
+    { label: '재고 적은순', value: 'stock_asc' },
+  ];
+
+  const handleSelect = (option: { label: string; value: string }) => {
+    setSelectedSort(option.label);
+    setIsOpen(false);
+    onSortChange(option.value); // ✅ 부모 컴포넌트로 정렬 기준 전달
+  };
+```
+`app/admin/page.tsx`
+```
+export default function Home() {
+...
+const [sortOrder, setSortOrder] = useState("");
+...
+useEffect(() => {
+    if (sortOrder) {
+      const sortedData = [...bookData].sort((a, b) => {
+        switch (sortOrder) {
+          case 'sales_desc':
+            return b.sales - a.sales;
+          case 'sales_asc':
+            return a.sales - b.sales;
+          case 'stock_desc':
+            return b.stock - a.stock;
+          case 'stock_asc':
+            return a.stock - b.stock;
+            case 'id_desc':
+            return b.id - a.id;
+          case 'id_asc':
+            return a.id - b.id;
+          default:
+            return 0;
+        }
+      });
+      setBookData(sortedData);
+    }
+  }, [sortOrder]);
+```
+사용자가 정렬 옵션을 선택하면 onSortchange를 호출하여 선택한 옵션을 value를 admin main의 useEffect로 보내줍니다.
+sortData에 bookData를 할당하여 도서 데이터를 가져온 뒤 switch문을 사용하여 정렬 기준(sortOrder 변수)에 따라 정렬합니다.<br/>
+데이터가 하나씩 넣으면서 들어올때마다 두 값을 빼서 차이를 이용하여 배열을 정렬하고 정렬된 배열을 출력합니다.<br/>
+useEffect가 sortOrder 감지하여 정렬 기준이 변할때마다 함수를 재실행하여 sortData배열을 새로 만들고 변경된 배열을 ui에 출력합니다.
+
+
+
+
+
