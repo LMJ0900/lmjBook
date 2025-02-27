@@ -23,10 +23,10 @@ interface BookDataType {
 export default function Home() {
   const [bookData, setBookData] = useState<BookDataType[]>([]);
   const [page, setPage] = useState(1);
-  const [editingbookId, setEditingbookId] = useState<number | null>(null); // ✅ 수정 중인 상품 ID
+  const [editingbookId, setEditingbookId] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortOrder, setSortOrder] = useState(""); // ✅ 정렬 상태 추가
-  const [searchType, setSearchType] = useState("통합검색"); // ✅ 검색 타입 추가
+  const [sortOrder, setSortOrder] = useState("");
+  const [searchType, setSearchType] = useState("통합검색");
   const itemsPerPage = 10;
   const router = useRouter();
   
@@ -47,7 +47,7 @@ export default function Home() {
         } else if (searchType === '저자') {
           queryBuilder = queryBuilder.ilike('author', `%${searchQuery}%`);
         }
-      }
+      } //검색하고 검색어에 맞춰서 뽑아주는 기능
 
       // ✅ 페이지네이션 적용
       const start = (page - 1) * itemsPerPage;
@@ -59,7 +59,7 @@ export default function Home() {
       else setBookData(data);
     }
     fetchProducts();
-  }, [bookData]); // ✅ 검색할 때마다 실행
+  }, [searchQuery, searchType, page]); // ✅ 검색할 때마다 실행
   useEffect(() => {
     if (sortOrder) {
       const sortedData = [...bookData].sort((a, b) => {
@@ -93,7 +93,7 @@ export default function Home() {
       alert('삭제 실패!');
     } else {
       alert('상품 삭제 완료!');
-      setBookData((prevData) => prevData.filter((book) => book.id !== bookId)); // ✅ 삭제된 상품 UI에서 제거
+      setBookData((prevData) => prevData.filter((book) => book.id !== bookId));
     }
   };
   const handleEditClick = (bookId: number) => {
@@ -114,7 +114,8 @@ export default function Home() {
       else setBookData(data);
     }
     fetchProducts();
-  }, [page]);
+  }, [page]); //불러오기
+
   const handleUpdateBook = (id: number, updatedName: string, updatedAuthor: string, updatedStock: number, updatedSales: number) => {
     setBookData((prevData) =>
       prevData.map((book) =>
@@ -151,7 +152,7 @@ export default function Home() {
             <Button color="bg-blue-500" func={() => handleEditClick(book.id)}>
                     {editingbookId === book.id ? "닫기" : "수정하기"}
                   </Button>
-              <Button color="bg-red-500" func={() => handleDelete(book.id)}>삭제하기</Button> {/* ✅ 삭제 버튼 */}
+              <Button color="bg-red-500" func={() => handleDelete(book.id)}>삭제하기</Button>
             </div>
             {/* 수정버튼 클릭 시 수정창 나오게 하기*/}
             {editingbookId === book.id && (
