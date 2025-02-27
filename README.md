@@ -424,7 +424,8 @@ input 창에 입력한 텍스트를 searchQuery에 저장하고 사용자가 엔
 아닐 시에는 부모 컴포넌트의 handleSerch를 호출하여 searchQuery(검색어) searchType(ex : 통합검색)을 전달합니다.<br/>
 그 후 부모 컴포넌트에서 받은 검색어와 검색 유형을 supabase에서 데이터를 가져와 화면에 표시합니다.
 
-## 정렬
+
+## 정렬 (hotfix로 db에서 데이터 정렬을 수정하게 변경되었습니다. 현재 올라간 것은 이전 코드와 설명입니다.) 
 `app/component/sortDropdown.tsx`
 ```
 export default function SortDropdown({ onSortChange }: SortDropdownProps) {
@@ -480,7 +481,6 @@ useEffect(() => {
 sortData에 bookData를 할당하여 도서 데이터를 가져온 뒤 switch문을 사용하여 정렬 기준(sortOrder 변수)에 따라 정렬합니다.<br/>
 데이터가 하나씩 넣으면서 들어올때마다 두 값을 빼서 차이를 이용하여 배열을 정렬하고 정렬된 배열을 출력합니다.<br/>
 useEffect가 sortOrder 감지하여 정렬 기준이 변할때마다 함수를 재실행하여 sortData배열을 새로 만들고 변경된 배열을 ui에 출력합니다.
-
 
 
 
