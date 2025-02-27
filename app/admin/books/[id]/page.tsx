@@ -20,7 +20,7 @@ export default function BookDetail() {
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
-  const { id } = useParams(); // ✅ URL에서 id 가져오기
+  const { id } = useParams(); 
 
   useEffect(() => {
     async function fetchBook() {
@@ -46,7 +46,7 @@ export default function BookDetail() {
 
   const handleUpdateBook = (updatedName: string, updatedAuthor: string, updatedStock: number, updatedSales: number, updatedDescription?: string) => {
     setBook((prevBook) => prevBook ? { ...prevBook, name: updatedName, author: updatedAuthor, stock: updatedStock, sales: updatedSales, description: updatedDescription } : null);
-    setIsEditing(false); // ✅ 수정 완료 후 수정 모드 종료
+    setIsEditing(false);
   };
 
   return (

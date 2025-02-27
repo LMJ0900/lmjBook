@@ -48,14 +48,14 @@ export default function Login() {
         placeholder="이메일"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="w-full p-2 border rounded mb-2"
+        className="w-full p-2 border rounded mb-2 text-black"
       />
       <input
         type="password"
         placeholder="비밀번호"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="w-full p-2 border rounded mb-2"
+        className="w-full p-2 border rounded mb-2 text-black"
       />
       <button onClick={handleLogin} className="w-full bg-blue-500 text-white p-2 rounded">
         로그인
