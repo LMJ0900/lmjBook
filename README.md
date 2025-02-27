@@ -1,3 +1,43 @@
+# 버전 및 사용 모듈
+```
+{
+  "name": "rgt",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
+    "next": "14.2.15",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.15",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
+```
+# 실행방법
+## 로컬
+vscode를 열어 터미널에 yarn을 입력하여 의존성 모듈을 다운 받아줍니다. <br/>
+.env.local 파일에 supabase의 NEXT_PUBLIC_SUPABASE_URL키와 NEXT_PUBLIC_SUPABASE_ANON_KEY키를 입력합니다.
+터미널에 yarn dev 혹은 npm run dev를 입력하여 접속합니다. <br/>
+## 배포 환경 테스트
+vscode를 열어 터미널에 yarn을 입력하여 의존성 모듈을 다운 받아줍니다. <br/>
+npm run build를 실행하여 배포 환경에 맞게 빌드합니다.<br/>
+npm run start를 통해 접속합니다.
+
 # git 구조
 <img src="https://github.com/user-attachments/assets/a5eab18a-130a-4b1e-b4d2-f8bcef3583bd" width="2000rem" height="1000rem">
 혼자 작업을 진행하였기 때문에 main브랜치에 바로 커밋을 하며 작업하거나, Trunk-based 전략을 이용하여 git을 진행하여도 괜찮지만, 협업시라고 가정하여 </br>
