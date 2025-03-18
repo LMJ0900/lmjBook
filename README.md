@@ -1,7 +1,7 @@
 # 버전 및 사용 모듈
 ```
 {
-  "name": "rgt",
+  "name": "lmj",
   "version": "0.1.0",
   "private": true,
   "scripts": {

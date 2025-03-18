@@ -41,7 +41,7 @@ export default function MainHeader(){
                 <div className={classes.home}>
                     <a href="./" className={classes.homeBtn}>
                         <i className="fa-solid fa-book-open"></i>
-                        <h2>rgtBook</h2>
+                        <h2>lmjBook</h2>
                     </a>
                 </div>
                 <form className="w-[50rem] flex items-center" action="">
